@@ -39,19 +39,26 @@ const pool = new Pool({
 // Email service integration (using Nodemailer with SendGrid/Mailgun/SES)
 const nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransporter({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: true,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS
-    }
-});
+// Create transporter (only if SMTP credentials are provided)
+let transporter = null;
+if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+    transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: process.env.SMTP_PORT || 587,
+        secure: process.env.SMTP_PORT == 465, // true for 465, false for other ports
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
+        }
+    });
+}
 
 // CRM Integration (example with HubSpot - can be swapped)
-const hubspot = require('@hubspot/api-client');
-const hubspotClient = new hubspot.Client({ accessToken: process.env.HUBSPOT_API_KEY });
+let hubspotClient = null;
+if (process.env.HUBSPOT_API_KEY) {
+    const hubspot = require('@hubspot/api-client');
+    hubspotClient = new hubspot.Client({ accessToken: process.env.HUBSPOT_API_KEY });
+}
 
 // ============================================
 // API ENDPOINTS
@@ -117,72 +124,88 @@ app.post('/api/pilot-request',
             const requestId = result.rows[0].id;
 
             // 2. Send confirmation email to user
-            await transporter.sendMail({
-                from: process.env.FROM_EMAIL,
-                to: email,
-                subject: 'Your Offline Pilot Request - Next Steps',
-                html: `
-                    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
-                        <h2>Thanks for your interest, ${name}!</h2>
-                        <p>We received your pilot request for <strong>${brand}</strong> in ${city}.</p>
-                        
-                        <div style="background: #f5f5f5; padding: 20px; margin: 20px 0;">
-                            <h3>What happens next:</h3>
-                            <ol>
-                                <li>Our team will review your brand and target market</li>
-                                <li>We'll prepare a custom pilot plan with locations, timeline, and pricing</li>
-                                <li>You'll receive a detailed proposal within 48 hours</li>
-                            </ol>
-                        </div>
-                        
-                        <p><strong>Your Request ID:</strong> #${requestId}</p>
-                        
-                        <p>Questions? Reply to this email or call us at (555) 123-4567.</p>
-                        
-                        <p>Best,<br>The Offline Team</p>
-                    </div>
-                `
-            });
+            if (transporter) {
+                try {
+                    await transporter.sendMail({
+                        from: process.env.FROM_EMAIL,
+                        to: email,
+                        subject: 'Your Offline Pilot Request - Next Steps',
+                        html: `
+                            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+                                <h2>Thanks for your interest, ${name}!</h2>
+                                <p>We received your pilot request for <strong>${brand}</strong> in ${city}.</p>
+                                
+                                <div style="background: #f5f5f5; padding: 20px; margin: 20px 0;">
+                                    <h3>What happens next:</h3>
+                                    <ol>
+                                        <li>Our team will review your brand and target market</li>
+                                        <li>We'll prepare a custom pilot plan with locations, timeline, and pricing</li>
+                                        <li>You'll receive a detailed proposal within 48 hours</li>
+                                    </ol>
+                                </div>
+                                
+                                <p><strong>Your Request ID:</strong> #${requestId}</p>
+                                
+                                <p>Questions? Reply to this email or call us at (555) 123-4567.</p>
+                                
+                                <p>Best,<br>The Offline Team</p>
+                            </div>
+                        `
+                    });
+                } catch (emailError) {
+                    console.error('Error sending user confirmation email:', emailError);
+                    // Don't fail the request if email fails
+                }
+            }
 
             // 3. Send notification to internal team
-            await transporter.sendMail({
-                from: process.env.FROM_EMAIL,
-                to: process.env.INTERNAL_EMAIL,
-                subject: `New Pilot Request: ${brand} - ${city}`,
-                html: `
-                    <h2>New Pilot Request Received</h2>
-                    <p><strong>Request ID:</strong> #${requestId}</p>
-                    <p><strong>Brand:</strong> ${brand}</p>
-                    <p><strong>Contact:</strong> ${name} (${email})</p>
-                    <p><strong>Category:</strong> ${category}</p>
-                    <p><strong>City:</strong> ${city}</p>
-                    <p><strong>Goal:</strong> ${goal}</p>
-                    <p><strong>Submitted:</strong> ${new Date().toISOString()}</p>
-                    
-                    <a href="${process.env.ADMIN_URL}/requests/${requestId}" 
-                       style="display: inline-block; padding: 12px 24px; background: #000; color: #fff; text-decoration: none; margin-top: 20px;">
-                        View in Dashboard
-                    </a>
-                `
-            });
+            if (transporter) {
+                try {
+                    await transporter.sendMail({
+                        from: process.env.FROM_EMAIL,
+                        to: process.env.INTERNAL_EMAIL,
+                        subject: `New Pilot Request: ${brand} - ${city}`,
+                        html: `
+                            <h2>New Pilot Request Received</h2>
+                            <p><strong>Request ID:</strong> #${requestId}</p>
+                            <p><strong>Brand:</strong> ${brand}</p>
+                            <p><strong>Contact:</strong> ${name} (${email})</p>
+                            <p><strong>Category:</strong> ${category}</p>
+                            <p><strong>City:</strong> ${city}</p>
+                            <p><strong>Goal:</strong> ${goal}</p>
+                            <p><strong>Submitted:</strong> ${new Date().toISOString()}</p>
+                            
+                            <a href="${process.env.ADMIN_URL || 'http://localhost:3000'}/requests/${requestId}" 
+                               style="display: inline-block; padding: 12px 24px; background: #000; color: #fff; text-decoration: none; margin-top: 20px;">
+                                View in Dashboard
+                            </a>
+                        `
+                    });
+                } catch (emailError) {
+                    console.error('Error sending internal notification email:', emailError);
+                    // Don't fail the request if email fails
+                }
+            }
 
             // 4. Create contact in CRM (HubSpot example)
-            try {
-                await hubspotClient.crm.contacts.basicApi.create({
-                    properties: {
-                        email: email,
-                        firstname: name.split(' ')[0],
-                        lastname: name.split(' ').slice(1).join(' '),
-                        company: brand,
-                        city: city,
-                        lead_source: 'Website Pilot Request',
-                        product_category: category,
-                        campaign_goal: goal
-                    }
-                });
-            } catch (crmError) {
-                console.error('CRM sync error:', crmError);
-                // Don't fail the request if CRM fails
+            if (hubspotClient) {
+                try {
+                    await hubspotClient.crm.contacts.basicApi.create({
+                        properties: {
+                            email: email,
+                            firstname: name.split(' ')[0],
+                            lastname: name.split(' ').slice(1).join(' ') || name.split(' ')[0],
+                            company: brand,
+                            city: city,
+                            lead_source: 'Website Pilot Request',
+                            product_category: category,
+                            campaign_goal: goal
+                        }
+                    });
+                } catch (crmError) {
+                    console.error('CRM sync error:', crmError);
+                    // Don't fail the request if CRM fails
+                }
             }
 
             // 5. Send success response
@@ -289,12 +312,18 @@ app.post('/api/contact',
                 [name, email, message]
             );
 
-            await transporter.sendMail({
-                from: process.env.FROM_EMAIL,
-                to: process.env.INTERNAL_EMAIL,
-                subject: `Contact Form: ${name}`,
-                text: `From: ${name} (${email})\n\n${message}`
-            });
+            if (transporter) {
+                try {
+                    await transporter.sendMail({
+                        from: process.env.FROM_EMAIL,
+                        to: process.env.INTERNAL_EMAIL,
+                        subject: `Contact Form: ${name}`,
+                        text: `From: ${name} (${email})\n\n${message}`
+                    });
+                } catch (emailError) {
+                    console.error('Error sending contact form email:', emailError);
+                }
+            }
 
             res.json({ success: true });
         } catch (error) {
