@@ -13,6 +13,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// Trust proxy - required for Railway/Heroku
+app.set('trust proxy', 1);
+
 
 // Rate limiting
 const limiter = rateLimit({
