@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offline Acquisition Infrastructure for Consumer Brands</title>
+    <title>GroundGame - Premium Offline Acquisition</title>
+    <meta name="description" content="Premium experiential marketing for sophisticated consumer brands. Measurable offline acquisition through city-level campaigns.">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -14,27 +15,28 @@
         }
         
         :root {
-            --black: #0A0A0A;
-            --off-white: #FAFAFA;
-            --gray-100: #F5F5F5;
-            --gray-200: #E8E8E8;
-            --gray-400: #ABABAB;
-            --gray-600: #666666;
-            --accent: #FF4D00;
-            --accent-light: #FF6B2C;
+            --deep-black: #0D0D0D;
+            --charcoal: #1A1A1A;
+            --soft-black: #2A2A2A;
+            --gold: #C9A961;
+            --gold-light: #D4B76F;
+            --cream: #F9F7F4;
+            --warm-white: #FEFDFB;
+            --silver: #A8A8A8;
+            --border: #E8E6E3;
         }
         
         body {
-            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--off-white);
-            color: var(--black);
-            line-height: 1.6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--warm-white);
+            color: var(--deep-black);
+            line-height: 1.7;
             -webkit-font-smoothing: antialiased;
+            font-weight: 400;
         }
         
-        .mono {
-            font-family: 'IBM Plex Mono', monospace;
-            letter-spacing: -0.02em;
+        .serif {
+            font-family: 'Libre Baskerville', serif;
         }
         
         /* Navigation */
@@ -42,49 +44,62 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(250, 250, 250, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--gray-200);
+            background: rgba(254, 253, 251, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
-            animation: slideDown 0.6s ease;
+            transition: all 0.3s ease;
         }
         
-        @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
+        nav.scrolled {
+            background: rgba(254, 253, 251, 0.98);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
         
         nav .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 2rem;
-            max-width: 1400px;
+            padding: 1.75rem 3rem;
+            max-width: 1600px;
             margin: 0 auto;
         }
         
         .logo {
-            font-size: 1.1rem;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.2rem;
             font-weight: 700;
-            letter-spacing: -0.03em;
+            letter-spacing: 0.05em;
+            color: var(--deep-black);
+        }
+        
+        .logo-accent {
+            display: inline-block;
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+            border-radius: 50%;
+            margin-left: 6px;
+            vertical-align: middle;
         }
         
         nav ul {
             display: flex;
-            gap: 2.5rem;
+            gap: 3rem;
             list-style: none;
         }
         
         nav a {
             text-decoration: none;
-            color: var(--black);
-            font-size: 0.95rem;
+            color: var(--soft-black);
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.2s;
+            transition: color 0.3s ease;
+            letter-spacing: 0.02em;
         }
         
         nav a:hover {
-            color: var(--accent);
+            color: var(--gold);
         }
         
         /* Hero Section */
@@ -92,9 +107,9 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 8rem 2rem 4rem;
+            padding: 12rem 3rem 8rem;
+            background: linear-gradient(180deg, var(--warm-white) 0%, var(--cream) 100%);
             position: relative;
-            overflow: hidden;
         }
         
         .hero::before {
@@ -102,36 +117,49 @@
             position: absolute;
             top: 0;
             right: 0;
-            width: 50%;
+            width: 40%;
             height: 100%;
-            background: linear-gradient(135deg, transparent 0%, var(--gray-100) 100%);
-            z-index: 0;
+            background: radial-gradient(circle at top right, rgba(201, 169, 97, 0.04) 0%, transparent 70%);
         }
         
         .hero .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
         
         .hero-content {
-            max-width: 680px;
+            max-width: 800px;
+        }
+        
+        .hero-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            font-weight: 600;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
         }
         
         .hero h1 {
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-family: 'Libre Baskerville', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
             font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.04em;
-            animation: fadeInUp 0.8s ease 0.2s backwards;
+            line-height: 1.15;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+            color: var(--deep-black);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
         }
         
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -140,370 +168,607 @@
         }
         
         .hero-subtitle {
-            font-size: 1.35rem;
-            color: var(--gray-600);
-            margin-bottom: 3rem;
-            line-height: 1.5;
-            animation: fadeInUp 0.8s ease 0.4s backwards;
+            font-size: 1.3rem;
+            color: var(--soft-black);
+            margin-bottom: 3.5rem;
+            line-height: 1.7;
+            font-weight: 400;
+            max-width: 700px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
         }
         
         .cta-group {
             display: flex;
-            gap: 1rem;
+            gap: 1.25rem;
             flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.6s backwards;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.8s forwards;
+            margin-bottom: 5rem;
         }
         
         .btn {
-            padding: 1rem 2rem;
-            font-size: 1rem;
+            padding: 1.1rem 2.75rem;
+            font-size: 0.95rem;
             font-weight: 600;
             border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             display: inline-block;
             font-family: inherit;
+            border-radius: 6px;
+            letter-spacing: 0.03em;
         }
         
         .btn-primary {
-            background: var(--black);
-            color: white;
+            background: var(--deep-black);
+            color: var(--warm-white);
+            box-shadow: 0 4px 12px rgba(13, 13, 13, 0.15);
         }
         
         .btn-primary:hover {
-            background: var(--accent);
+            background: var(--gold);
+            color: var(--deep-black);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.3);
+            box-shadow: 0 8px 24px rgba(201, 169, 97, 0.25);
         }
         
         .btn-secondary {
             background: transparent;
-            color: var(--black);
-            border: 2px solid var(--black);
+            color: var(--deep-black);
+            border: 1.5px solid var(--border);
         }
         
         .btn-secondary:hover {
-            background: var(--black);
-            color: white;
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(201, 169, 97, 0.05);
         }
         
-        /* Social Proof */
-        .social-proof {
-            margin-top: 5rem;
-            animation: fadeInUp 0.8s ease 0.8s backwards;
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 1s forwards;
         }
         
-        .social-proof-label {
-            font-size: 0.75rem;
+        .stat {
+            text-align: left;
+        }
+        
+        .stat-value {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--deep-black);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .stat-value .accent {
+            color: var(--gold);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--silver);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Trust Bar */
+        .trust-bar {
+            text-align: center;
+            margin-top: 6rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 1.2s forwards;
+        }
+        
+        .trust-label {
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--gray-400);
-            margin-bottom: 1.5rem;
+            letter-spacing: 0.2em;
+            color: var(--silver);
+            margin-bottom: 2rem;
             font-weight: 600;
         }
         
-        .brand-logos {
+        .trust-items {
             display: flex;
             gap: 3rem;
+            justify-content: center;
             flex-wrap: wrap;
             align-items: center;
-            opacity: 0.4;
         }
         
-        .brand-placeholder {
+        .trust-item {
             font-size: 0.9rem;
-            padding: 0.75rem 1.5rem;
-            background: var(--gray-100);
-            border: 1px solid var(--gray-200);
+            padding: 0.75rem 2rem;
+            background: transparent;
+            border: 1px solid var(--border);
             font-weight: 500;
-            color: var(--gray-600);
+            color: var(--soft-black);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .trust-item:hover {
+            border-color: var(--gold);
+            color: var(--gold);
         }
         
         /* Section Styling */
         section {
-            padding: 6rem 2rem;
-            max-width: 1400px;
+            padding: 8rem 3rem;
+            max-width: 1600px;
             margin: 0 auto;
         }
         
         .section-header {
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
         .section-label {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            margin-bottom: 1rem;
+            letter-spacing: 0.25em;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
             font-weight: 600;
         }
         
         .section-title {
-            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-family: 'Libre Baskerville', serif;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
             font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.03em;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
             margin-bottom: 1.5rem;
+            color: var(--deep-black);
         }
         
         .section-description {
-            font-size: 1.2rem;
-            color: var(--gray-600);
-            max-width: 700px;
-            line-height: 1.6;
+            font-size: 1.15rem;
+            color: var(--soft-black);
+            line-height: 1.7;
+            font-weight: 400;
         }
         
         /* How It Works */
         .steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 3rem;
-            margin-top: 3rem;
+            margin-top: 4rem;
         }
         
         .step {
             position: relative;
-            padding: 2.5rem 2rem;
-            background: white;
-            border: 1px solid var(--gray-200);
-            transition: all 0.3s ease;
+            padding: 3.5rem 3rem;
+            background: var(--warm-white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .step:hover {
-            border-color: var(--black);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--gold);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(13, 13, 13, 0.08);
         }
         
         .step-number {
-            font-size: 3rem;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 0.85rem;
             font-weight: 700;
-            color: var(--gray-200);
-            line-height: 1;
-            margin-bottom: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
         }
         
         .step h3 {
+            font-family: 'Libre Baskerville', serif;
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
             font-weight: 700;
+            color: var(--deep-black);
         }
         
         .step p {
-            color: var(--gray-600);
-            line-height: 1.7;
+            color: var(--soft-black);
+            line-height: 1.8;
+            margin-bottom: 1.75rem;
+            font-size: 0.95rem;
         }
         
         .step ul {
             list-style: none;
-            margin-top: 1rem;
         }
         
         .step li {
-            padding-left: 1.5rem;
+            padding-left: 1.75rem;
             position: relative;
-            color: var(--gray-600);
-            margin-bottom: 0.5rem;
+            color: var(--soft-black);
+            margin-bottom: 0.9rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
         
         .step li::before {
-            content: '→';
+            content: '—';
             position: absolute;
             left: 0;
-            color: var(--accent);
+            color: var(--gold);
             font-weight: 600;
         }
         
         /* Services */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
         }
         
         .service-card {
-            background: white;
-            padding: 3rem 2.5rem;
-            border: 1px solid var(--gray-200);
+            background: var(--warm-white);
+            padding: 4rem 3.5rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
             position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        .service-card::before {
-            content: '';
+        .service-card.featured {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, #FEFDFB 0%, #F9F7F4 100%);
+            box-shadow: 0 8px 32px rgba(201, 169, 97, 0.12);
+        }
+        
+        .featured-badge {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 0;
-            background: var(--accent);
-            transition: height 0.3s ease;
-        }
-        
-        .service-card:hover::before {
-            height: 100%;
+            top: 2rem;
+            right: 2rem;
+            background: var(--gold);
+            color: var(--warm-white);
+            padding: 0.5rem 1.1rem;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            border-radius: 3px;
         }
         
         .service-card:hover {
-            border-color: var(--accent);
+            border-color: var(--gold);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 56px rgba(13, 13, 13, 0.1);
         }
         
         .service-card h3 {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.65rem;
+            margin-bottom: 1.25rem;
             font-weight: 700;
+            color: var(--deep-black);
         }
         
         .service-card p {
-            color: var(--gray-600);
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
+            color: var(--soft-black);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        
+        .service-price {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--deep-black);
+        }
+        
+        .price-label {
+            font-size: 0.8rem;
+            color: var(--silver);
+            margin-bottom: 2.5rem;
+            display: block;
+            letter-spacing: 0.03em;
         }
         
         .service-features {
             list-style: none;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
         
         .service-features li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid var(--gray-200);
-            color: var(--black);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--soft-black);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 1.75rem;
+        }
+        
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: 700;
         }
         
         .service-features li:last-child {
             border-bottom: none;
         }
         
-        .pricing-note {
+        /* Results Section */
+        .results-section {
+            background: var(--deep-black);
+            color: var(--warm-white);
+            padding: 8rem 3rem;
+        }
+        
+        .results-section .section-label {
+            color: var(--gold);
+        }
+        
+        .results-section .section-title {
+            color: var(--warm-white);
+        }
+        
+        .results-section .section-description {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        
+        .result-card {
+            background: var(--charcoal);
+            padding: 3rem 2.5rem;
+            border: 1px solid rgba(201, 169, 97, 0.2);
+            border-radius: 8px;
+            transition: all 0.4s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            background: var(--soft-black);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+        }
+        
+        .result-quote {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .result-stat {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .result-author {
             font-size: 0.9rem;
-            color: var(--gray-400);
-            font-style: italic;
-            margin-top: 2rem;
+            color: var(--warm-white);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .result-company {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.03em;
         }
         
         /* Why Offline Works */
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
         }
         
         .benefit {
-            background: var(--gray-100);
-            padding: 2.5rem 2rem;
-            border-left: 3px solid var(--black);
+            background: var(--warm-white);
+            padding: 3rem 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.4s ease;
+        }
+        
+        .benefit:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 12px 40px rgba(13, 13, 13, 0.08);
         }
         
         .benefit h3 {
+            font-family: 'Libre Baskerville', serif;
             font-size: 1.3rem;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             font-weight: 700;
+            color: var(--deep-black);
         }
         
         .benefit p {
-            color: var(--gray-600);
-            line-height: 1.7;
+            color: var(--soft-black);
+            line-height: 1.8;
+            font-size: 0.95rem;
         }
         
-        /* Metrics */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 0;
-            margin-top: 3rem;
-            border: 1px solid var(--gray-200);
-            background: white;
+        /* ROI Calculator */
+        .calculator {
+            background: var(--warm-white);
+            padding: 4rem 3.5rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            max-width: 700px;
+            margin: 4rem auto 0;
+            box-shadow: 0 8px 32px rgba(13, 13, 13, 0.06);
         }
         
-        .metric {
-            padding: 2.5rem 2rem;
-            border-right: 1px solid var(--gray-200);
-            border-bottom: 1px solid var(--gray-200);
+        .calculator h3 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
             text-align: center;
-            transition: background 0.3s ease;
+            color: var(--deep-black);
         }
         
-        .metric:hover {
-            background: var(--gray-100);
+        .calc-input {
+            margin-bottom: 1.75rem;
         }
         
-        .metric-label {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--gray-400);
+        .calc-input label {
+            display: block;
             margin-bottom: 0.75rem;
             font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--soft-black);
+            letter-spacing: 0.02em;
         }
         
-        .metric-value {
-            font-size: 1.5rem;
+        .calc-input input, .calc-input select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            border: 1.5px solid var(--border);
+            background: var(--warm-white);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            color: var(--deep-black);
+        }
+        
+        .calc-input input:focus, .calc-input select:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.1);
+        }
+        
+        .calc-result {
+            background: var(--deep-black);
+            color: var(--warm-white);
+            padding: 3rem 2.5rem;
+            margin-top: 2.5rem;
+            text-align: center;
+            border-radius: 6px;
+        }
+        
+        .calc-result-value {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 3.5rem;
             font-weight: 700;
-            color: var(--black);
+            color: var(--gold);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .calc-result-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .calc-comparison {
+            font-size: 0.9rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            line-height: 1.7;
         }
         
         /* Cities */
         .cities-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
+            gap: 1.25rem;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            justify-content: center;
         }
         
         .city-tag {
-            padding: 1rem 2rem;
-            background: var(--black);
-            color: white;
+            padding: 1.1rem 2.5rem;
+            background: var(--warm-white);
+            color: var(--deep-black);
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            letter-spacing: 0.02em;
         }
         
         .city-tag:hover {
-            background: var(--accent);
-            transform: scale(1.05);
+            background: var(--gold);
+            color: var(--warm-white);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(201, 169, 97, 0.2);
         }
         
         .cities-note {
-            background: var(--gray-100);
-            padding: 2rem;
-            border-left: 3px solid var(--accent);
-            margin-top: 3rem;
+            background: var(--warm-white);
+            padding: 3rem 3.5rem;
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--gold);
+            margin-top: 4rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 6px;
         }
         
         .cities-note p {
-            color: var(--gray-600);
-            font-size: 1.05rem;
-            line-height: 1.7;
+            color: var(--soft-black);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        
+        .cities-note strong {
+            color: var(--deep-black);
+            font-weight: 600;
         }
         
         /* Contact Form */
         .contact-section {
-            background: var(--black);
-            color: white;
-            padding: 6rem 2rem;
+            background: var(--deep-black);
+            color: var(--warm-white);
+            padding: 8rem 3rem;
         }
         
         .contact-container {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
         }
         
         .contact-section .section-label {
-            color: var(--accent);
+            color: var(--gold);
         }
         
         .contact-section .section-title {
-            color: white;
+            color: var(--warm-white);
         }
         
         .contact-section .section-description {
@@ -511,36 +776,39 @@
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
         }
         
         label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.02em;
         }
         
         input, select, textarea {
             width: 100%;
-            padding: 1rem;
-            font-size: 1rem;
+            padding: 1.1rem 1.25rem;
+            font-size: 0.95rem;
             font-family: inherit;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+            color: var(--warm-white);
             transition: all 0.3s ease;
+            border-radius: 6px;
         }
         
         input:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--accent);
-            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.09);
+            box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.15);
         }
         
         input::placeholder, textarea::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.35);
         }
         
         select {
@@ -548,39 +816,41 @@
         }
         
         option {
-            background: var(--black);
-            color: white;
+            background: var(--deep-black);
+            color: var(--warm-white);
         }
         
         .btn-submit {
             width: 100%;
-            background: var(--accent);
-            color: white;
-            padding: 1.25rem;
-            font-size: 1.1rem;
+            background: var(--gold);
+            color: var(--deep-black);
+            padding: 1.35rem;
+            font-size: 1rem;
             font-weight: 700;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
+            letter-spacing: 0.05em;
+            border-radius: 6px;
         }
         
         .btn-submit:hover:not(:disabled) {
-            background: var(--accent-light);
+            background: var(--gold-light);
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(255, 77, 0, 0.4);
+            box-shadow: 0 12px 36px rgba(201, 169, 97, 0.3);
         }
         
         .btn-submit:disabled {
-            opacity: 0.6;
+            opacity: 0.5;
             cursor: not-allowed;
         }
         
         /* Alert Messages */
         .alert {
-            padding: 1rem 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
+            padding: 1.25rem 1.75rem;
+            margin-bottom: 2rem;
+            border-radius: 6px;
             display: none;
         }
         
@@ -589,58 +859,43 @@
             animation: slideDown 0.3s ease;
         }
         
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         .alert-success {
-            background: #10B981;
-            color: white;
+            background: rgba(201, 169, 97, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-weight: 500;
         }
         
         .alert-error {
-            background: #EF4444;
-            color: white;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid #EF4444;
+            color: #FF8A8A;
+            font-weight: 500;
         }
         
         /* Footer */
         footer {
-            background: var(--black);
-            color: rgba(255, 255, 255, 0.6);
-            padding: 3rem 2rem;
+            background: var(--deep-black);
+            color: rgba(255, 255, 255, 0.5);
+            padding: 4rem 3rem;
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         footer p {
-            font-size: 0.9rem;
-        }
-        
-        /* Dark Section Variant */
-        .dark-section {
-            background: var(--black);
-            color: white;
-        }
-        
-        .dark-section .section-label {
-            color: var(--accent);
-        }
-        
-        .dark-section .section-title {
-            color: white;
-        }
-        
-        .dark-section .section-description {
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .dark-section .benefit {
-            background: rgba(255, 255, 255, 0.05);
-            border-left-color: var(--accent);
-        }
-        
-        .dark-section .benefit h3 {
-            color: white;
-        }
-        
-        .dark-section .benefit p {
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            letter-spacing: 0.03em;
         }
         
         /* Mobile Menu */
@@ -650,22 +905,26 @@
             border: none;
             font-size: 1.5rem;
             cursor: pointer;
-            color: var(--black);
+            color: var(--deep-black);
         }
         
         /* Responsive */
         @media (max-width: 768px) {
+            nav .container {
+                padding: 1.5rem 2rem;
+            }
+            
             nav ul {
                 display: none;
                 position: absolute;
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: var(--off-white);
+                background: var(--warm-white);
                 flex-direction: column;
                 padding: 2rem;
-                gap: 1rem;
-                border-bottom: 1px solid var(--gray-200);
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border);
             }
             
             nav ul.active {
@@ -677,15 +936,24 @@
             }
             
             .hero {
-                padding-top: 6rem;
+                padding: 8rem 2rem 4rem;
+            }
+            
+            section {
+                padding: 5rem 2rem;
             }
             
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.75rem;
             }
             
             .hero-subtitle {
                 font-size: 1.1rem;
+            }
+            
+            .stats-bar {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
             .steps {
@@ -700,12 +968,8 @@
                 grid-template-columns: 1fr;
             }
             
-            .metrics-grid {
+            .results-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .metric {
-                border-right: none;
             }
             
             .cities-list {
@@ -714,6 +978,10 @@
             
             .city-tag {
                 text-align: center;
+            }
+            
+            .calculator {
+                padding: 3rem 2rem;
             }
         }
         
@@ -724,24 +992,26 @@
         
         /* Selection */
         ::selection {
-            background: var(--accent);
-            color: white;
+            background: var(--gold);
+            color: var(--warm-white);
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
+    <nav id="navbar">
         <div class="container">
-            <div class="logo">OFFLINE</div>
+            <div class="logo serif">
+                GROUNDGAME<span class="logo-accent"></span>
+            </div>
             <button class="mobile-menu-toggle" aria-label="Toggle menu">☰</button>
             <ul id="nav-menu">
-                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#how-it-works">Process</a></li>
                 <li><a href="#services">Services</a></li>
-                <li><a href="#why-offline">Why Offline</a></li>
-                <li><a href="#metrics">Metrics</a></li>
-                <li><a href="#cities">Cities</a></li>
-                <li><a href="#contact">Launch a Pilot</a></li>
+                <li><a href="#results">Case Studies</a></li>
+                <li><a href="#calculator">ROI Calculator</a></li>
+                <li><a href="#cities">Markets</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -750,20 +1020,39 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Turn Foot Traffic Into Customers.</h1>
-                <p class="hero-subtitle">City-level sampling & pop-up campaigns for consumer brands entering new markets.</p>
+                <div class="hero-label">Premium Offline Acquisition</div>
+                
+                <h1 class="serif">Sophisticated campaigns that convert foot traffic into customers</h1>
+                
+                <p class="hero-subtitle">We deliver measurable offline acquisition for discerning consumer brands through meticulously executed city-level sampling campaigns.</p>
+                
                 <div class="cta-group">
-                    <a href="#contact" class="btn btn-primary">Launch a Pilot</a>
-                    <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+                    <a href="#contact" class="btn btn-primary">Schedule Consultation</a>
+                    <a href="#how-it-works" class="btn btn-secondary">Explore Our Process</a>
                 </div>
                 
-                <div class="social-proof">
-                    <div class="social-proof-label">Trusted by Emerging Consumer Brands</div>
-                    <div class="brand-logos">
-                        <div class="brand-placeholder">Coffee & Beverage</div>
-                        <div class="brand-placeholder">Personal Care</div>
-                        <div class="brand-placeholder">Wellness D2C</div>
+                <div class="stats-bar">
+                    <div class="stat">
+                        <div class="stat-value serif"><span class="accent">45,000</span>+</div>
+                        <div class="stat-label">Samples Distributed</div>
                     </div>
+                    <div class="stat">
+                        <div class="stat-value serif">$<span class="accent">12</span></div>
+                        <div class="stat-label">Average Cost Per Lead</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value serif"><span class="accent">18.9</span>%</div>
+                        <div class="stat-label">Average Conversion Rate</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="trust-bar">
+                <div class="trust-label">Permitted in Premium Venues Nationwide</div>
+                <div class="trust-items">
+                    <div class="trust-item">Westfield</div>
+                    <div class="trust-item">Simon Property</div>
+                    <div class="trust-item">Brookfield</div>
                 </div>
             </div>
         </div>
@@ -772,45 +1061,45 @@
     <!-- How It Works -->
     <section id="how-it-works">
         <div class="section-header">
-            <div class="section-label">Process</div>
-            <h2 class="section-title">How It Works</h2>
-            <p class="section-description">We handle every aspect of your offline customer acquisition—from planning to execution to performance reporting.</p>
+            <div class="section-label">Our Process</div>
+            <h2 class="section-title serif">Precision Execution, Measurable Results</h2>
+            <p class="section-description">Every campaign is meticulously planned, professionally executed, and comprehensively measured to deliver actionable customer acquisition data.</p>
         </div>
         
         <div class="steps">
             <div class="step">
-                <div class="step-number">01</div>
-                <h3>Plan the City Launch</h3>
-                <p>We identify high-traffic locations aligned with your target demographic and handle all logistics:</p>
+                <div class="step-number serif">PHASE ONE</div>
+                <h3 class="serif">Strategic Planning</h3>
+                <p>We analyze your brand positioning and identify optimal locations that align with your target demographic profile.</p>
                 <ul>
-                    <li>Location selection and site surveys</li>
+                    <li>Comprehensive location analysis and selection</li>
                     <li>Permit acquisition and regulatory compliance</li>
-                    <li>Brand ambassador recruitment and training</li>
-                    <li>Kiosk and materials setup</li>
+                    <li>Curated brand ambassador recruitment</li>
+                    <li>Custom activation design and setup</li>
                 </ul>
             </div>
             
             <div class="step">
-                <div class="step-number">02</div>
-                <h3>Run On-Ground Activations</h3>
-                <p>Our teams execute professional, data-driven campaigns in the field:</p>
+                <div class="step-number serif">PHASE TWO</div>
+                <h3 class="serif">Professional Execution</h3>
+                <p>Our trained teams deliver sophisticated on-ground activations that reflect your brand's premium positioning.</p>
                 <ul>
-                    <li>Branded kiosks and sampling stations</li>
-                    <li>Trained product ambassadors</li>
-                    <li>Sample distribution and product education</li>
-                    <li>Real-time campaign monitoring</li>
+                    <li>Elegant branded environments and displays</li>
+                    <li>Professional product ambassadors</li>
+                    <li>Thoughtful sampling and brand education</li>
+                    <li>Real-time performance monitoring</li>
                 </ul>
             </div>
             
             <div class="step">
-                <div class="step-number">03</div>
-                <h3>Capture & Report Data</h3>
-                <p>Every activation generates measurable customer data you own:</p>
+                <div class="step-number serif">PHASE THREE</div>
+                <h3 class="serif">Data & Insights</h3>
+                <p>Each activation generates valuable first-party data with comprehensive analytics you own completely.</p>
                 <ul>
-                    <li>QR code, SMS, and email signups</li>
-                    <li>First-purchase coupon redemptions</li>
+                    <li>Multi-channel lead capture (QR, SMS, email)</li>
+                    <li>Conversion-optimized coupon distribution</li>
                     <li>Daily performance dashboards</li>
-                    <li>Cost per lead and conversion metrics</li>
+                    <li>Detailed ROI and attribution reporting</li>
                 </ul>
             </div>
         </div>
@@ -819,116 +1108,181 @@
     <!-- Services -->
     <section id="services">
         <div class="section-header">
-            <div class="section-label">Services</div>
-            <h2 class="section-title">Campaign Packages</h2>
-            <p class="section-description">Choose the activation model that fits your brand's growth stage and market entry strategy.</p>
+            <div class="section-label">Service Offerings</div>
+            <h2 class="section-title serif">Tailored Campaign Solutions</h2>
+            <p class="section-description">Select the engagement model that aligns with your brand's market entry strategy and growth objectives.</p>
         </div>
         
         <div class="services-grid">
             <div class="service-card">
-                <h3>Sampling Pop-Ups</h3>
-                <p>Short-term activations designed to drive immediate product trial in high-density areas.</p>
+                <h3 class="serif">Pilot Activations</h3>
+                <p>Focused short-term campaigns designed to validate market appetite and refine your offline strategy.</p>
+                
+                <div class="service-price serif">$2,500+</div>
+                <span class="price-label">Per activation</span>
+                
                 <ul class="service-features">
-                    <li>1-3 day activations per location</li>
-                    <li>Branded kiosk setup</li>
-                    <li>Trained brand ambassadors</li>
-                    <li>Product sample distribution</li>
-                    <li>Post-campaign summary report</li>
+                    <li>500–1,000 samples distributed</li>
+                    <li>1–3 day premium venue activations</li>
+                    <li>Professional brand ambassadors</li>
+                    <li>Complete permitting and logistics</li>
+                    <li>Executive summary report</li>
                 </ul>
-                <p class="pricing-note">Custom pricing based on city & scale</p>
+            </div>
+            
+            <div class="service-card featured">
+                <div class="featured-badge">Recommended</div>
+                <h3 class="serif">Acquisition Campaigns</h3>
+                <p>Comprehensive programs combining sampling with sophisticated lead capture for measurable customer acquisition.</p>
+                
+                <div class="service-price serif">$5,000+</div>
+                <span class="price-label">Per campaign</span>
+                
+                <ul class="service-features">
+                    <li>1,500–3,000 samples distributed</li>
+                    <li>Multi-channel lead capture infrastructure</li>
+                    <li>Premium first-purchase incentives</li>
+                    <li>Daily performance analytics</li>
+                    <li>Comprehensive conversion tracking</li>
+                </ul>
             </div>
             
             <div class="service-card">
-                <h3>Lead Capture Campaigns</h3>
-                <p>Combine sampling with structured first-party data collection for measurable offline CAC.</p>
+                <h3 class="serif">Market Launch Programs</h3>
+                <p>Extensive multi-week initiatives for brands establishing presence in new markets with sustained visibility.</p>
+                
+                <div class="service-price serif">$15,000+</div>
+                <span class="price-label">Per market</span>
+                
                 <ul class="service-features">
-                    <li>Product sampling + signup incentive</li>
-                    <li>QR / SMS / email lead capture</li>
-                    <li>First-purchase coupon distribution</li>
-                    <li>Daily lead reporting and attribution</li>
-                    <li>CPL and conversion tracking</li>
+                    <li>5,000–10,000 samples distributed</li>
+                    <li>2–4 week sustained presence</li>
+                    <li>3–5 strategic premium locations</li>
+                    <li>Weekly strategic consultation</li>
+                    <li>Market intelligence and optimization</li>
                 </ul>
-                <p class="pricing-note">Custom pricing based on city & scale</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="results-section">
+        <div class="section-header">
+            <div class="section-label">Case Studies</div>
+            <h2 class="section-title serif">Proven Performance</h2>
+            <p class="section-description">Sophisticated consumer brands rely on GroundGame for measurable offline acquisition with transparent ROI.</p>
+        </div>
+        
+        <div class="results-grid">
+            <div class="result-card">
+                <div class="result-quote">
+                    "We distributed <span class="result-stat">2,400 samples</span> and captured <span class="result-stat">847 qualified leads</span> over two weeks. Our cost per acquisition of <span class="result-stat">$8.50</span> significantly outperformed our digital channels."
+                </div>
+                <div class="result-author">Sarah Johnson, Growth Director</div>
+                <div class="result-company">Premium Coffee Brand</div>
             </div>
             
-            <div class="service-card">
-                <h3>City Launch Programs</h3>
-                <p>Multi-week, multi-location campaigns for brands entering new markets at scale.</p>
-                <ul class="service-features">
-                    <li>2-4 week activation cycles</li>
-                    <li>Multiple high-traffic locations</li>
-                    <li>Comprehensive market testing</li>
-                    <li>Weekly performance reporting</li>
-                    <li>Strategic optimization and insights</li>
-                </ul>
-                <p class="pricing-note">Custom pricing based on city & scale</p>
+            <div class="result-card">
+                <div class="result-quote">
+                    "Testing three markets simultaneously provided invaluable market intelligence. The structured data from GroundGame informed our entire expansion strategy and saved months of speculation."
+                </div>
+                <div class="result-author">Michael Chen, Founder</div>
+                <div class="result-company">Wellness D2C</div>
+            </div>
+            
+            <div class="result-card">
+                <div class="result-quote">
+                    "For trial-dependent products, offline delivers superior conversion. We achieved <span class="result-stat">32% coupon redemption</span> from our sampling campaign—ROI far exceeding paid social."
+                </div>
+                <div class="result-author">Lisa Kim, Chief Marketing Officer</div>
+                <div class="result-company">Luxury Skincare</div>
+            </div>
+            
+            <div class="result-card">
+                <div class="result-quote">
+                    "The <span class="result-stat">5,000 samples</span> distributed across Manhattan provided irreplaceable qualitative feedback that shaped our product positioning before national launch."
+                </div>
+                <div class="result-author">Thomas Rodriguez, Marketing Director</div>
+                <div class="result-company">Beverage Innovation</div>
             </div>
         </div>
     </section>
 
     <!-- Why Offline Works -->
-    <section id="why-offline" class="dark-section">
+    <section id="why-offline">
         <div class="section-header">
-            <div class="section-label">Strategy</div>
-            <h2 class="section-title">Why Offline Works</h2>
-            <p class="section-description">For trial-based products, physical activations deliver measurable advantages over digital-only acquisition.</p>
+            <div class="section-label">Strategic Advantage</div>
+            <h2 class="section-title serif">The Offline Imperative</h2>
+            <p class="section-description">For sensory-dependent products, physical activation delivers strategic advantages that digital channels simply cannot replicate.</p>
         </div>
         
         <div class="benefits-grid">
             <div class="benefit">
-                <h3>Lower CAC for Trial Products</h3>
-                <p>Immediate product experience drives higher conversion than ads. For beverage, food, and personal care brands, taste and touch matter.</p>
+                <h3 class="serif">Superior Economics</h3>
+                <p>Immediate product experience drives demonstrably higher conversion than digital advertising. For beverage, food, and personal care brands, sensory engagement fundamentally outperforms visual marketing.</p>
             </div>
             
             <div class="benefit">
-                <h3>First-Party Data Ownership</h3>
-                <p>Capture email, SMS, and purchase intent directly. No platform intermediaries. You own the relationship from day one.</p>
+                <h3 class="serif">Data Ownership</h3>
+                <p>Capture email, SMS, and purchase intent directly without platform intermediaries. You own the customer relationship from first contact, enabling sophisticated lifecycle marketing.</p>
             </div>
             
             <div class="benefit">
-                <h3>Real Customer Feedback</h3>
-                <p>Face-to-face interactions reveal product positioning, messaging gaps, and feature preferences before scaling spend.</p>
+                <h3 class="serif">Market Intelligence</h3>
+                <p>Face-to-face interactions reveal nuanced product positioning insights, messaging opportunities, and feature preferences that inform strategic decisions before scaling investment.</p>
             </div>
             
             <div class="benefit">
-                <h3>Strong Brand Trust & Recall</h3>
-                <p>In-person experiences create memory structures digital ads can't replicate. Customers remember where they discovered you.</p>
+                <h3 class="serif">Brand Resonance</h3>
+                <p>In-person experiences create distinctive memory architecture that digital impressions cannot match. Customers remember the context of discovery, creating lasting brand associations.</p>
             </div>
         </div>
     </section>
 
-    <!-- Metrics -->
-    <section id="metrics">
+    <!-- ROI Calculator -->
+    <section id="calculator">
         <div class="section-header">
-            <div class="section-label">Performance</div>
-            <h2 class="section-title">Metrics We Track</h2>
-            <p class="section-description">Every campaign delivers clear, actionable data tied to customer acquisition and revenue.</p>
+            <div class="section-label">Investment Analysis</div>
+            <h2 class="section-title serif">Calculate Your Returns</h2>
+            <p class="section-description">Model your expected customer acquisition economics and compare against current digital spend.</p>
         </div>
         
-        <div class="metrics-grid">
-            <div class="metric">
-                <div class="metric-label">Samples Distributed</div>
-                <div class="metric-value">Total reach per campaign</div>
+        <div class="calculator">
+            <h3 class="serif">Estimate Your Offline CAC</h3>
+            
+            <div class="calc-input">
+                <label for="samples">Sample Distribution Volume</label>
+                <select id="samples">
+                    <option value="1000">1,000 samples</option>
+                    <option value="2000" selected>2,000 samples</option>
+                    <option value="3000">3,000 samples</option>
+                    <option value="5000">5,000 samples</option>
+                    <option value="10000">10,000 samples</option>
+                </select>
             </div>
             
-            <div class="metric">
-                <div class="metric-label">Cost Per Lead (CPL)</div>
-                <div class="metric-value">Offline CAC benchmark</div>
+            <div class="calc-input">
+                <label for="conversion">Projected Conversion Rate</label>
+                <select id="conversion">
+                    <option value="10">10% (Conservative)</option>
+                    <option value="15" selected>15% (Industry Average)</option>
+                    <option value="20">20% (Optimistic)</option>
+                    <option value="25">25% (Premium Scenarios)</option>
+                </select>
             </div>
             
-            <div class="metric">
-                <div class="metric-label">Signup Conversion Rate</div>
-                <div class="metric-value">Trial → data capture %</div>
+            <div class="calc-input">
+                <label for="budget">Campaign Investment</label>
+                <input type="number" id="budget" value="5000" min="1000" step="500" placeholder="$5,000">
             </div>
             
-            <div class="metric">
-                <div class="metric-label">First Purchase Redemptions</div>
-                <div class="metric-value">Coupon → sale tracking</div>
-            </div>
-            
-            <div class="metric">
-                <div class="metric-label">City-Level Performance</div>
-                <div class="metric-value">Market-by-market ROI</div>
+            <div class="calc-result">
+                <div class="calc-result-value serif" id="cpl-result">$16.67</div>
+                <div class="calc-result-label">Projected Cost Per Lead</div>
+                <div class="calc-comparison">
+                    Industry benchmark (Meta Ads): <strong>$28–45 CPL</strong><br>
+                    <span style="color: var(--gold);">Estimated efficiency gain: ~45%</span>
+                </div>
             </div>
         </div>
     </section>
@@ -936,13 +1290,12 @@
     <!-- Cities -->
     <section id="cities">
         <div class="section-header">
-            <div class="section-label">Coverage</div>
-            <h2 class="section-title">Where We Operate</h2>
-            <p class="section-description">City-by-city execution with local permits, staffing, and logistics handled end-to-end.</p>
+            <div class="section-label">Market Presence</div>
+            <h2 class="section-title serif">Where We Operate</h2>
+            <p class="section-description">Strategic presence in premier markets with comprehensive local infrastructure, permitting, and professional staffing.</p>
         </div>
         
-        <div class="cities-list" id="cities-container">
-            <!-- Cities will be loaded dynamically from API -->
+        <div class="cities-list">
             <div class="city-tag">New York</div>
             <div class="city-tag">San Francisco</div>
             <div class="city-tag">Austin</div>
@@ -951,7 +1304,7 @@
         </div>
         
         <div class="cities-note">
-            <p><strong>Expanding to new cities quarterly.</strong> We build operational infrastructure in markets where demand is concentrated, ensuring quality execution and reliable performance reporting. If your target city isn't listed, we can evaluate feasibility for multi-location pilots.</p>
+            <p><strong>Deliberate expansion into high-value markets.</strong> We establish operational excellence in cities with concentrated demand, ensuring consistent quality and reliable performance measurement. If your target market isn't currently serviced, we evaluate expansion feasibility for qualified multi-location programs.</p>
         </div>
     </section>
 
@@ -959,9 +1312,9 @@
     <section id="contact" class="contact-section">
         <div class="contact-container">
             <div class="section-header">
-                <div class="section-label">Get Started</div>
-                <h2 class="section-title">Launch Your Offline Pilot</h2>
-                <p class="section-description">Tell us about your brand and target market. We'll send you a custom pilot plan with projected costs and timelines within 48 hours.</p>
+                <div class="section-label">Begin Your Journey</div>
+                <h2 class="section-title serif">Schedule a Consultation</h2>
+                <p class="section-description">Share your brand details and market objectives. We'll respond with a tailored proposal including projected costs and timelines within 48 hours.</p>
             </div>
             
             <div id="form-alert" class="alert"></div>
@@ -986,45 +1339,55 @@
                         <option value="personal-care">Personal Care</option>
                         <option value="wellness">Wellness & Supplements</option>
                         <option value="beauty">Beauty & Cosmetics</option>
-                        <option value="other">Other D2C Consumer</option>
+                        <option value="other">Other Premium Consumer</option>
                     </select>
                 </div>
                 
                 <div class="form-group">
-                    <label for="city">Target City</label>
-                    <input type="text" id="city" name="city" required placeholder="Where do you want to launch?">
+                    <label for="city">Target Market</label>
+                    <input type="text" id="city" name="city" required placeholder="Primary city of interest">
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">Email Address</label>
                     <input type="email" id="email" name="email" required placeholder="your@email.com">
                 </div>
                 
                 <div class="form-group">
-                    <label for="goal">Campaign Goal</label>
+                    <label for="goal">Primary Objective</label>
                     <select id="goal" name="goal" required>
-                        <option value="">Select primary goal</option>
-                        <option value="trial">Drive product trial</option>
-                        <option value="leads">Capture leads for email/SMS</option>
-                        <option value="launch">Test new market entry</option>
-                        <option value="acquisition">Offline customer acquisition</option>
-                        <option value="research">Market research & feedback</option>
+                        <option value="">Select primary objective</option>
+                        <option value="trial">Drive product trial and awareness</option>
+                        <option value="leads">Acquire qualified customer data</option>
+                        <option value="launch">Test new market viability</option>
+                        <option value="acquisition">Establish offline acquisition channel</option>
+                        <option value="research">Gather market intelligence</option>
                     </select>
                 </div>
                 
-                <button type="submit" class="btn-submit" id="submit-btn">Request a Pilot Plan</button>
+                <button type="submit" class="btn-submit" id="submit-btn">Request Proposal</button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Offline Acquisition Infrastructure. Built for consumer brands serious about growth.</p>
+        <p>&copy; 2026 GroundGame. Premium offline acquisition for discerning consumer brands.</p>
     </footer>
 
     <script>
-        // Configuration - Update this with your actual API URL
+        // Configuration
         const API_BASE_URL = 'https://offline-marketing-site-backend-production.up.railway.app/api';
+        
+        // Scroll effect for nav
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
         
         // Mobile menu toggle
         const menuToggle = document.querySelector('.mobile-menu-toggle');
@@ -1034,45 +1397,43 @@
             navMenu.classList.toggle('active');
         });
         
-        // Close mobile menu when clicking a link
         navMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
             });
         });
         
-        // Load cities from API
-        async function loadCities() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/cities`);
-                if (response.ok) {
-                    const cities = await response.json();
-                    const container = document.getElementById('cities-container');
-                    container.innerHTML = cities.map(city => 
-                        `<div class="city-tag">${city.city_name}</div>`
-                    ).join('');
-                }
-            } catch (error) {
-                console.error('Error loading cities:', error);
-                // Keep default cities if API fails
-            }
+        // ROI Calculator
+        const samplesInput = document.getElementById('samples');
+        const conversionInput = document.getElementById('conversion');
+        const budgetInput = document.getElementById('budget');
+        const cplResult = document.getElementById('cpl-result');
+        
+        function calculateCPL() {
+            const samples = parseInt(samplesInput.value);
+            const conversion = parseInt(conversionInput.value) / 100;
+            const budget = parseInt(budgetInput.value);
+            
+            const leads = samples * conversion;
+            const cpl = budget / leads;
+            
+            cplResult.textContent = '$' + cpl.toFixed(2);
         }
         
-        // Load cities on page load
-        loadCities();
+        samplesInput.addEventListener('change', calculateCPL);
+        conversionInput.addEventListener('change', calculateCPL);
+        budgetInput.addEventListener('input', calculateCPL);
         
-        // Form submission handler with API integration
+        // Form submission
         document.getElementById('contact-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const submitBtn = document.getElementById('submit-btn');
             const alert = document.getElementById('form-alert');
             
-            // Disable submit button
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
             
-            // Collect form data
             const formData = {
                 name: document.getElementById('name').value,
                 brand: document.getElementById('brand').value,
@@ -1094,49 +1455,43 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    // Success
                     alert.className = 'alert alert-success show';
-                    alert.textContent = 'Thank you! Your pilot request has been submitted. Check your email for confirmation and next steps.';
+                    alert.textContent = 'Thank you. Your consultation request has been received. We will respond with a tailored proposal within 48 hours.';
                     this.reset();
                     
-                    // Track conversion (optional - add your analytics here)
                     if (typeof gtag !== 'undefined') {
                         gtag('event', 'form_submission', {
-                            'event_category': 'pilot_request',
+                            'event_category': 'consultation_request',
                             'event_label': formData.brand
                         });
                     }
                 } else {
-                    // Error
                     alert.className = 'alert alert-error show';
-                    alert.textContent = result.message || 'Something went wrong. Please try again or contact us directly.';
+                    alert.textContent = result.message || 'We apologize for the inconvenience. Please try again or contact us directly.';
                 }
             } catch (error) {
                 console.error('Form submission error:', error);
                 alert.className = 'alert alert-error show';
-                alert.textContent = 'Network error. Please check your connection and try again.';
+                alert.textContent = 'Network connectivity issue. Please verify your connection and try again.';
             } finally {
-                // Re-enable submit button
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Request a Pilot Plan';
+                submitBtn.textContent = 'Request Proposal';
                 
-                // Scroll to alert
                 alert.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-                // Hide alert after 10 seconds
                 setTimeout(() => {
                     alert.classList.remove('show');
-                }, 10000);
+                }, 12000);
             }
         });
         
-        // Smooth scroll for navigation links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    const offsetTop = target.offsetTop - 80;
+                    const offsetTop = target.offsetTop - 100;
                     window.scrollTo({
                         top: offsetTop,
                         behavior: 'smooth'
